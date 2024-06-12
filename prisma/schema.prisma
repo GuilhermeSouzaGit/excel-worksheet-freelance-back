@@ -1,0 +1,52 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model NotaFiscal {
+  id                      Int       @id @default(autoincrement())
+  dataEmissao             String?
+  serie                   String?
+  numeroNotaFiscal        String?
+  chaveAcesso             String?
+  naturezaOperacao        String?
+  tipoEmissao             String?
+  numProtocolo            String?
+  dataAutorizacao         String?
+  situacao                String?
+  valorTotalBaseCalculo   String?
+  valorTotalIcms          String?
+  valorTotalBcSt          String?
+  valorTotalIcmsSt        String?
+  valorTotalProduto       String?
+  valorTotalFrete         String?
+  valorTotalNotaFiscal    String?
+  valorTotalServico       String?
+  emissorId               Int?
+  destinatarioId          Int?
+  emissor                 Emissor?  @relation(fields: [emissorId], references: [id])
+  destinatario            Destinatario?  @relation(fields: [destinatarioId], references: [id])
+}
+
+model Emissor {
+  id               Int       @id @default(autoincrement())
+  cnpjCpf          String?
+  nomeRazaoSocial  String?
+  inscricaoEstadual String?
+  nomeFantasia     String?
+  uf               String?
+  notasFiscais     NotaFiscal[]
+}
+
+model Destinatario {
+  id               Int       @id @default(autoincrement())
+  cnpjCpf          String?
+  nomeRazaoSocial  String?
+  inscricaoEstadual String?
+  uf               String?
+  notasFiscais     NotaFiscal[]
+}
