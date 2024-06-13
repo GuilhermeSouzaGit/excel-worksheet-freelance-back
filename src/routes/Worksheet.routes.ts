@@ -16,5 +16,6 @@ WorksheetRoutes.post(
 	worksheetController.uploadSpreadsheetData
 );
 WorksheetRoutes.get("/get", worksheetController.getSpreadsheetData);
+WorksheetRoutes.post("/delete-all", worksheetController.deleteAllData);
 
 export { WorksheetRoutes };
